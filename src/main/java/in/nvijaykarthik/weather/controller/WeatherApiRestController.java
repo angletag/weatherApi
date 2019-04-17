@@ -1,4 +1,4 @@
-package com.hackerrank.weather.controller;
+package in.nvijaykarthik.weather.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hackerrank.weather.model.Weather;
-import com.hackerrank.weather.repository.LocationRepository;
-import com.hackerrank.weather.repository.WeatherRepository;
+import in.nvijaykarthik.weather.model.Weather;
+import in.nvijaykarthik.weather.repository.LocationRepository;
+import in.nvijaykarthik.weather.repository.WeatherRepository;
 
 @RestController
 public class WeatherApiRestController {
@@ -39,10 +39,13 @@ public class WeatherApiRestController {
 	public ResponseEntity<List<Weather>> getAllWeather(@RequestParam(required = false) String date,
 			@RequestParam(required = false) Float lat, @RequestParam(required = false) Float lon)
 			throws ParseException {
+		
 		Date dt=null;
+		
 		if(null!=date) {
 		  dt = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 		}
+		
 		if (null != dt && null != lat && null != lon) {
 			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
 		}
@@ -65,17 +68,18 @@ public class WeatherApiRestController {
 			List<Weather> weather = weatherRepo.findByLocationLatAndLocationLon(lat, lon);
 			log.info("Find By Lat & Lon Weather : {}",weather);
 			if (CollectionUtils.isEmpty(weather)) {
-				return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_GATEWAY);
 			}
 			return new ResponseEntity<>(weather, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+		
 	}
 
 	@RequestMapping(path = "/weather", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Weather> SaveWeather(@RequestBody Weather we) {
 		ResponseEntity<Weather> response;
-		List<Weather> w=weatherRepo.findAll();
+	
 		Weather weather = weatherRepo.findOne(we.getId());
 		log.info("Save find By id : {}",weather);
 		if (null != weather) {

@@ -1,4 +1,4 @@
-package com.hackerrank.weather.model;
+package in.nvijaykarthik.weather.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -3,6 +3,9 @@ package com.hackerrank.weather;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import in.nvijaykarthik.weather.Application;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

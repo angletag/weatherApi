@@ -1,4 +1,4 @@
-package com.hackerrank.weather.model;
+package in.nvijaykarthik.weather.model;
 
 import java.util.Date;
 import java.util.List;
